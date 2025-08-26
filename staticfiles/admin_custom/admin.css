@@ -1,0 +1,54 @@
+/* Colores personalizados */
+body, .module h2 {
+    font-family: 'Arial', sans-serif;
+}
+
+#header, .nav-global {
+    background-color: #b3609f !important;
+}
+
+#header h1, #header h1 a, .breadcrumbs a {
+    color: #ffffff !important;
+}
+
+/* Botones */
+input[type="submit"], .button, .grp-submit-row input {
+    background-color: #b3609f;
+    border-color: #b3609f;
+    color: white;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover, .button:hover, .grp-submit-row input:hover {
+    background-color: #954d80;
+    border-color: #954d80;
+}
+
+/* Tablas */
+table {
+    border-radius: 8px;
+}
+
+th {
+    background-color: #b3609f;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f7e6f1;
+}
+
+tr:hover {
+    background-color: #e2c5e4;
+}
+
+/* Sidebar */
+#nav-global, #content-main h2 {
+    font-weight: bold;
+}
+
+/* Footer */
+#footer {
+    color: #b3609f;
+    font-weight: bold;
+}
