@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "widget_tweaks",
     "citas",  # 👈 tu app real
+    'citas.apps.CitasConfig',
+    
 ]
 
 MIDDLEWARE = [
