@@ -20,6 +20,25 @@ from googleapiclient.discovery import build
 from google.oauth2 import service_account
 import os
 
+
+#--- REGRISTRO --- 
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # inicia sesión automáticamente tras registrarse
+            return redirect("home")  # cámbialo a la vista que quieras
+    else:
+        form = UserCreationForm()
+    return render(request, "register.html", {"form": form})
+
+
+
 # ---------------- HOME ----------------
 def home(request):
     return render(request, 'home.html')
