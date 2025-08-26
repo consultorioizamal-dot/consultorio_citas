@@ -1,13 +1,5 @@
-<h2>Login de Administrador</h2>
-<form method="post">
-  {% csrf_token %}
-  <input type="text" name="username" placeholder="Usuario"><br>
-  <input type="password" name="password" placeholder="Contraseña"><br>
-  <button type="submit">Ingresar</button>
-</form>
-{% if error %}<p style="color:red">{{ error }}</p>{% endif %}
-<!-- login.html -->
 {% extends "base.html" %}
+
 {% block content %}
 <div class="login-container">
   <h2>Iniciar Sesión</h2>
@@ -17,6 +9,11 @@
     <button type="submit">Entrar</button>
   </form>
 
+  {% if error %}
+    <p style="color:red">{{ error }}</p>
+  {% endif %}
+
   <p>¿No tienes cuenta? <a href="{% url 'register' %}">Regístrate aquí</a></p>
 </div>
 {% endblock %}
+
