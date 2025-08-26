@@ -181,7 +181,6 @@ def agendar_cita(request):
 
         notificar_cliente_email(cita)
         notificar_psicologa(cita)
-        crear_evento_google_calendar(cita)
 
         messages.success(request, "¡Cita reservada exitosamente! Revisa tu correo.")
         return redirect('agendar_cita')
