@@ -9,5 +9,6 @@ urlpatterns = [
     path('admin-login/', views.login_admin, name='login_admin'),
     path('exportar-excel/', views.exportar_excel, name='exportar_excel'),
     path('exportar-pdf/', views.exportar_pdf, name='exportar_pdf'),
-    path('api/horas_disponibles/', views.api_horas_disponibles, name='api_horas_disponibles'),   
+    path('api/horas_disponibles/', views.api_horas_disponibles, name='api_horas_disponibles'),
+    path('crear-superusuario/', views.crear_superusuario_temporal),
 ]
