@@ -96,7 +96,8 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 # 🔗 Base URL
-BASE_URL = os.environ.get("BASE_URL", "http://127.0.0.1:8000")
+BASE_URL = os.environ.get("BASE_URL", "https://consultorio-citas.onrender.com/admin-citas/
+")
 
 # 📧 Email (Gmail)
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
