@@ -1,1 +1,1 @@
-web: gunicorn consultorio_citas.wsgi
+web: gunicorn consultorio_citas.wsgi:application
