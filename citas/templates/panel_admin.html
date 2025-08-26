@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Citas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light p-4">
+<div class="container">
+    <h1 class="mb-4">Panel de Citas</h1>
+    <a href="/" class="btn btn-secondary mb-3">← Volver a inicio</a>
+
+    <!-- FILTROS -->
+    <form method="get" class="row mb-3">
+        <div class="col-md-3">
+            <select name="tipo" class="form-select">
+                <option value="">-- Selecciona filtro --</option>
+                <option value="dia" {% if request.GET.tipo == "dia" %}selected{% endif %}>Día</option>
+                <option value="mes" {% if request.GET.tipo == "mes" %}selected{% endif %}>Mes</option>
+                <option value="anio" {% if request.GET.tipo == "anio" %}selected{% endif %}>Año</option>
+                <option value="rango" {% if request.GET.tipo == "rango" %}selected{% endif %}>Rango</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="date" name="fecha_inicio" value="{{ request.GET.fecha_inicio }}" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <input type="date" name="fecha_fin" value="{{ request.GET.fecha_fin }}" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary w-100">Filtrar</button>
+        </div>
+    </form>
+
+    <!-- BOTONES DE EXPORTACIÓN -->
+    <a href="{% url 'exportar_excel' %}?tipo={{ request.GET.tipo }}&fecha_inicio={{ request.GET.fecha_inicio }}&fecha_fin={{ request.GET.fecha_fin }}" class="btn btn-success">Exportar Excel</a>
+    <a href="{% url 'exportar_pdf' %}?tipo={{ request.GET.tipo }}&fecha_inicio={{ request.GET.fecha_inicio }}&fecha_fin={{ request.GET.fecha_fin }}" class="btn btn-danger ms-2">Exportar PDF</a>
+
+    <!-- TABLA -->
+    <table class="table table-bordered table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Servicio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cita in citas %}
+                <tr>
+                    <td>{{ cita.nombre }}</td>
+                    <td>{{ cita.telefono }}</td>
+                    <td>{{ cita.correo }}</td>
+                    <td>{{ cita.fecha }}</td>
+                    <td>{{ cita.hora }}</td>
+                    <td>{{ cita.servicio }}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="6">No hay citas registradas.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

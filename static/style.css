@@ -1,0 +1,19 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.polaroid {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 8px;
+    transform: rotate(-2deg);
+}
+
+.polaroid:hover {
+    transform: rotate(0deg);
+    transition: transform 0.3s;
+}
+a i.fab:hover {
+    color: #0d6efd;
+    transition: color 0.3s ease;
+}

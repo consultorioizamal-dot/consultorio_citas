@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Agendar Cita</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <!-- Formulario -->
+        <div class="col-md-6">
+            <form method="POST" action="{% url 'agendar_cita' %}">
+                {% csrf_token %}
+
+                <!-- Nombre -->
+                <div class="form-group mt-3">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+
+                <!-- Teléfono -->
+                <div class="form-group mt-3">
+                    <label for="telefono">Número de teléfono</label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono" required pattern="[0-9]{10}">
+                </div>
+
+                <!-- Correo -->
+                <div class="form-group mt-3">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" class="form-control" id="correo" name="correo" required placeholder="ejemplo@correo.com">
+                </div>
+
+                <!-- Edad -->
+                <div class="form-group mt-3">
+                    <label>¿Eres mayor de edad?</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="es_mayor" id="mayor_si" value="si" required>
+                        <label class="form-check-label" for="mayor_si">Sí</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="es_mayor" id="mayor_no" value="no" required>
+                        <label class="form-check-label" for="mayor_no">No</label>
+                    </div>
+                </div>
+
+                <!-- Servicios -->
+                <div class="form-group mt-3">
+                    <label for="servicio">Selecciona un servicio</label>
+                    <select class="form-control" id="servicio" name="servicio" required>
+                        <option value="">-- Selecciona edad primero --</option>
+                    </select>
+                </div>
+
+                <!-- Fecha -->
+                <div class="form-group mt-3">
+                    <label for="fecha">Selecciona la fecha</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha" required min="{{ today }}">
+                </div>
+
+                <!-- Hora -->
+                <div class="form-group mt-3">
+                    <label for="hora">Selecciona la hora (03:00 PM a 9:00 PM)</label>
+                    <select class="form-control" id="hora" name="hora" required>
+                        <option value="">Selecciona una fecha primero</option>
+                    </select>
+                </div>
+
+                <!-- Botón de regreso -->
+                <a href="{% url 'home' %}" 
+                   style="position: fixed; top: 10px; left: 5px; z-index: 1000; 
+                          text-decoration: none; color: #b3609f; font-weight: bold; font-size: 14px;">
+                   Inicio
+                </a>
+
+                <!-- Botón agendar -->
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn" style="background-color: #b3609f; color: white;">Agendar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Calendario -->
+        <div class="col-md-6">
+            <div class="card p-3 shadow-sm">
+                <h5 class="text-center" style="color: #b3609f;">Disponibilidad</h5>
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estilos para FullCalendar -->
+<style>
+    /* Botones del calendario */
+    #calendar .fc .fc-button-primary {
+        background-color: #b3609f;
+        border-color: #b3609f;
+    }
+    #calendar .fc .fc-button-primary:not(:disabled):hover {
+        background-color: #954d80;
+        border-color: #954d80;
+    }
+    /* Título de la toolbar */
+    #calendar .fc .fc-toolbar-title {
+        color: #b3609f;
+    }
+    /* Día actual resaltado */
+    #calendar .fc-daygrid-day.fc-day-today {
+        background-color: #f7e6f1 !important;
+    }
+</style>
+
+<!-- FullCalendar CSS -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet" />
+
+<!-- FullCalendar JS -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const mayorSi = document.getElementById("mayor_si");
+    const mayorNo = document.getElementById("mayor_no");
+    const servicioSelect = document.getElementById("servicio");
+
+    const serviciosMayores = [
+        "Consulta en línea","Psicoterapia","Terapia individual","Terapia familiar",
+        "Terapia de pareja","Terapia cognitivo-conductual (TCC)","Evaluación psicológica",
+        "Evaluaciones psicométricas","Evaluaciones clínicas","Consulta psicológica online",
+        "Visita Psicología","Terapia para adulto"
+    ];
+
+    const serviciosMenores = [
+        "Psicoterapia para adolescentes","Psicoterapia infantil","Psicoterapia familiar",
+        "Pruebas de ansiedad","Primera visita Psicología","Orientación para padres",
+        "Intervención en crisis"
+    ];
+
+    function actualizarServicios(edad) {
+        servicioSelect.innerHTML = '<option value="">-- Selecciona --</option>';
+        const lista = edad === 'mayor' ? serviciosMayores : serviciosMenores;
+        lista.forEach(s => {
+            const opt = document.createElement("option");
+            opt.value = s;
+            opt.text = s;
+            servicioSelect.appendChild(opt);
+        });
+    }
+
+    mayorSi.addEventListener("change", function () { if (this.checked) actualizarServicios('mayor'); });
+    mayorNo.addEventListener("change", function () { if (this.checked) actualizarServicios('menor'); });
+
+    // Inicializar calendario
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'es',
+        navLinks: true,
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: '/events/',
+        eventColor: '#b3609f',
+        eventTextColor: '#ffffff',
+        eventBorderColor: '#b3609f'
+    });
+    calendar.render();
+
+    // Cargar horas según fecha
+    const fechaInput = document.getElementById("fecha");
+    const horaSelect = document.getElementById("hora");
+
+    fechaInput.addEventListener("change", function () {
+        const fecha = this.value;
+        if (!fecha) return;
+
+        horaSelect.innerHTML = "<option>Cargando...</option>";
+
+        fetch(`/api/horas_disponibles/?fecha=${fecha}`)
+            .then(res => res.json())
+            .then(data => {
+                horaSelect.innerHTML = "";
+                if (data.horas.length > 0) {
+                    data.horas.forEach(h => {
+                        const option = document.createElement("option");
+                        option.value = h;
+                        option.text = h;
+                        horaSelect.appendChild(option);
+                    });
+                } else {
+                    horaSelect.innerHTML = "<option>No hay horas disponibles</option>";
+                }
+            })
+            .catch(err => {
+                console.error("Error al cargar horas:", err);
+                horaSelect.innerHTML = "<option>Error al cargar horas</option>";
+            });
+    });
+});
+</script>
+{% endblock %}

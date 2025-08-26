@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; font-size: 12px; }
+        h1 { text-align: center; margin-bottom: 0; }
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .logo {
+            width: 100px;
+        }
+        .fecha {
+            text-align: right;
+            font-size: 11px;
+            margin-top: -10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 6px;
+            text-align: left;
+        }
+        th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ logo_url }}" class="logo"><br>
+        <h1>Reporte de Citas</h1>
+        <p class="fecha">Generado: {{ fecha_actual }}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Servicio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cita in citas %}
+            <tr>
+                <td>{{ cita.nombre }}</td>
+                <td>{{ cita.telefono }}</td>
+                <td>{{ cita.correo }}</td>
+                <td>{{ cita.fecha }}</td>
+                <td>{{ cita.hora }}</td>
+                <td>{{ cita.servicio }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="6">No hay citas registradas.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

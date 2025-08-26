@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" href="{% static 'img/logo.png' %}" type="image/png">
+    <link rel="apple-touch-icon" href="{% static 'img/logo.png' %}">
+    <meta charset="UTF-8">
+    <title>Consultorio Psicológico - Mónica Herrera</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+
+<body class="bg-gradient">
+
+<!-- Hero Header -->
+<header class="text-white text-center py-5" style="background: linear-gradient(135deg, #d35c9c, #bd5dd8);">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Psic. Mónica Ivette Herrera Sánchez</h1>
+        <p class="lead">Atención psicológica profesional en Izamal, Yucatán</p>
+        <a href="{% url 'agendar_cita' %}" class="btn btn-light mt-3">Agendar Cita</a>
+    </div>
+</header>
+
+<!-- Redes sociales -->
+<!-- Redes sociales -->
+<section class="text-center my-4">
+    <a href="https://www.instagram.com/psic.monica_herrera/" target="_blank" class="me-4 text-dark fs-3">
+        <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.facebook.com/monica.herrera.319" target="_blank" class="me-4 text-dark fs-3">
+        <i class="fab fa-facebook"></i>
+    </a>
+    <a href="https://wa.me/529991181003" target="_blank" class="text-dark fs-3">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</section>
+
+
+<!-- Biografía Profesional Mejorada con Foto -->
+<section class="container my-5">
+    <h2 class="text-center mb-4">Sobre Mí</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+
+            <!-- Foto centrada -->
+            <img src="{% static 'img/psicologa.jpg' %}" 
+                 class="img-fluid rounded-circle mb-4 shadow-sm" 
+                 alt="Psicóloga Mónica Ivette Herrera Sánchez" 
+                 style="width: 200px; height: 200px; object-fit: cover;">
+
+            <!-- Primer párrafo centrado -->
+            <p class="lead">
+                Soy la Psicóloga <strong>Mónica Ivette Herrera Sánchez</strong>, egresada de la <strong>Universidad Autónoma de Yucatán</strong> con especialización en psicología clínica y Maestría en Psicoterapia, especializada en el acompañamiento terapéutico de niños, adolescentes y adultos. Con años de experiencia en salud mental y un enfoque centrado en la persona, mi consultorio ubicado en <strong>Izamal, Yucatán</strong> es un espacio seguro para trabajar tu bienestar emocional. ¡Estoy aquí para escucharte!
+            </p>
+
+            <!-- Subtítulo Experiencia -->
+            <h5 class="mt-4"><i class="fas fa-user-graduate"></i> Experiencia y Estudios</h5>
+            <p class="lead text-center">
+                He participado en diversas conferencias y talleres de actualización profesional en psicoterapia y salud mental. Mi formación incluye estudios avanzados en psicología clínica y psicoterapia centrada en la persona, así como cursos especializados en intervención en crisis y terapias cognitivas.
+            </p>
+
+            <!-- Subtítulo Conferencias -->
+            <h5 class="mt-4"><i class="fas fa-chalkboard-teacher"></i> Conferencias y Talleres</h5>
+            <p class="lead text-center">
+                He asistido y presentado en múltiples eventos académicos y talleres de psicología en Mérida y otras ciudades de Yucatán, compartiendo experiencias y técnicas terapéuticas para mejorar el bienestar emocional de mis pacientes.
+            </p>
+
+            <!-- Subtítulo Consultorio -->
+            <h5 class="mt-4"><i class="fas fa-clinic-medical"></i> Consultorio</h5>
+            <p class="lead text-center">
+                Mi consultorio, ubicado en el corazón de <strong>Izamal, Yucatán</strong>, es un espacio acogedor y profesional donde acompañamos a cada paciente en su proceso personal, asegurando confidencialidad y atención personalizada.
+            </p>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Carrusel tipo Polaroid / Post -->
+<section class="container mb-5">
+    <h2 class="text-center mb-4">Publicaciones Recientes</h2>
+    <div class="row justify-content-center gy-4">
+        <!-- Tarjeta 1 -->
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card shadow-sm polaroid">
+                <img src="{% static 'img/post1.jpg' %}" class="card-img-top" alt="Post 1">
+                <div class="card-body text-center">
+                    <p class="card-text small">Terapia es valentíar. ❤️ #SaludMental</p>
+                </div>
+            </div>
+        </div>
+        <!-- Tarjeta 2 -->
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card shadow-sm polaroid">
+                <img src="{% static 'img/post2.jpg' %}" class="card-img-top" alt="Post 2">
+                <div class="card-body text-center">
+                    <p class="card-text small">"Escuchar también es sanar".</p>
+                </div>
+            </div>
+        </div>
+        <!-- Agrega más tarjetas según tus imágenes -->
+    </div>
+</section>
+
+<!-- Galería del consultorio -->
+<section class="container mb-5">
+    <h2 class="text-center mb-4">Nuestro Espacio</h2>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <img src="{% static 'img/consultorio1.jpg' %}" class="img-fluid rounded shadow-sm" alt="Foto 1">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'img/consultorio3.jpg' %}" class="img-fluid rounded shadow-sm" alt="Foto 3">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'img/consultorio4.jpg' %}" class="img-fluid rounded shadow-sm" alt="Foto 4">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'img/consultorio5.jpg' %}" class="img-fluid rounded shadow-sm" alt="Foto 5">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'img/consultorio7.jpg' %}" class="img-fluid rounded shadow-sm" alt="Foto 7">
+        </div>
+        <div class="col-md-4">
+            <img src="{% static 'img/consultorio9.jpg' %}" class="img-fluid rounded shadow-sm" alt="Foto 9">
+        </div>
+    </div>
+</section>
+
+
+<footer class="text-center text-muted py-3">
+    &copy; 2025 Psic. Mónica Ivette Herrera - Izamal, Yucatán
+</footer>
+
+</body>
+</html>
