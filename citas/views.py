@@ -99,29 +99,7 @@ def notificar_cliente_email(cita):
         print(f"[ERROR] Enviando correo al cliente: {e}")
 
 # ---------------- GOOGLE CALENDAR ----------------
-SERVICE_ACCOUNT_FILE = os.path.join(settings.BASE_DIR, 'citas/citaspsicologia-f84b7e451026.json')
-SCOPES = ['https://www.googleapis.com/auth/calendar']
 
-def crear_evento_google_calendar(cita):
-    try:
-        credentials = service_account.Credentials.from_service_account_file(
-            SERVICE_ACCOUNT_FILE, scopes=SCOPES
-        )
-        service = build('calendar', 'v3', credentials=credentials)
-
-        start_datetime = datetime.combine(cita.fecha, cita.hora)
-        end_datetime = start_datetime + timedelta(hours=1)
-
-        event = {
-            'summary': f"Cita con {cita.nombre}",
-            'description': f"Servicio: {cita.servicio}\nTeléfono: {cita.telefono}",
-            'start': {'dateTime': start_datetime.isoformat(), 'timeZone': 'America/Merida'},
-            'end': {'dateTime': end_datetime.isoformat(), 'timeZone': 'America/Merida'},
-        }
-
-        service.events().insert(calendarId=settings.EMAIL_HOST_USER, body=event).execute()
-    except Exception as e:
-        print(f"[ERROR] Creando evento Google Calendar: {e}")
 
 # ---------------- NOTIFICACIÓN PSICÓLOGA ----------------
 def notificar_psicologa(cita):
