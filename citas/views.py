@@ -20,18 +20,6 @@ from googleapiclient.discovery import build
 from google.oauth2 import service_account
 import os
 
-#-- temporal
-from django.http import HttpResponse
-from django.contrib.auth.models import User
-
-def crear_superusuario_temporal(request):
-    if not User.objects.filter(username='Monica').exists():
-        User.objects.create_superuser('Monica', 'admin@correo.com', 'ConsultorioIza')
-        return HttpResponse("Superusuario creado!")
-    return HttpResponse("Ya existe el superusuario")
-
-
-
 # ---------------- HOME ----------------
 def home(request):
     return render(request, 'home.html')
