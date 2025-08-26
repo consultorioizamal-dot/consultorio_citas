@@ -99,7 +99,7 @@ def notificar_cliente_email(cita):
         print(f"[ERROR] Enviando correo al cliente: {e}")
 
 # ---------------- GOOGLE CALENDAR ----------------
-SERVICE_ACCOUNT_FILE = os.path.join(settings.BASE_DIR, 'citas/citaspsicologia-6a32198a3750.json')
+SERVICE_ACCOUNT_FILE = os.path.join(settings.BASE_DIR, 'citas/citaspsicologia-f84b7e451026.json')
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 def crear_evento_google_calendar(cita):
